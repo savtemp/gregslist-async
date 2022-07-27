@@ -1,4 +1,5 @@
 import { ProxyState } from "../AppState.js";
+import { carForm } from "../Models/Car.js";
 import { carsService } from "../Services/CarsService.js";
 import { loadState, saveState } from "../Utils/LocalStorage.js";
 
@@ -12,9 +13,14 @@ function _drawCars(){
   document.getElementById('listings').innerHTML = template
 }
 
-function test(){
-  console.log('listener triggered');
+function _drawCarForm(){
+  document.getElementById('form').innerHTML = carForm
 }
+
+
+// function test(){
+//   console.log('listener triggered');
+// }
 
 
 export class CarsController{
@@ -23,13 +29,14 @@ export class CarsController{
     // NOTE register a listener. below is listens to 'cars' on the proxystate, and when triggerd runs '_drawCars'
     ProxyState.on('cars', _drawCars)
     ProxyState.on('cars', saveState)
-    ProxyState.on('cars', test)
+    // ProxyState.on('cars', test)
     loadState()
     _drawCars()
   }
 
   viewCars(){
     _drawCars()
+    _drawCarForm()
   }
 
   createCar(){
