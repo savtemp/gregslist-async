@@ -30,7 +30,7 @@ export class CarsController{
     ProxyState.on('cars', _drawCars)
     ProxyState.on('cars', saveState)
     // ProxyState.on('cars', test)
-    loadState()
+    // loadState()
     _drawCars()
   }
 
