@@ -3,6 +3,7 @@ import { EventEmitter } from "./Utils/EventEmitter.js"
 import { isValidProp } from "./Utils/isValidProp.js"
 
 import { House } from "./Models/House.js"
+import { Job } from "./Models/Job.js"
 
 
 class AppState extends EventEmitter {
@@ -20,6 +21,13 @@ class AppState extends EventEmitter {
     new House({name:'Mansion', year:2000, price: 300000, img:'https://images.unsplash.com/photo-1603460217649-decbe0624f54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fG1hbnNpb258ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60', description:'ultra-fancy mansion, with too many rooms'}),
     new House({name:'Cottage', year: 1821, price: 900000, img:'https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y290dGFnZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60', description:'quaint cottage, on large acre plenty of land for activities'})
   ]
+
+  /** @type {import('./Models/Job').Job[]} */
+  jobs = [
+    new Job({name:'Bear Delivery Man', experience:2, pay:17, img:'https://images.unsplash.com/photo-1615897370727-d091b76d47a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8ZGVsaXZlcnklMjBtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60', description:'Deliving bears of all ages to clients in a timely manner and in good health. Must have clean driving record.'}),
+    new Job({name:'Bridge Architect', experience:4, pay:26, img:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXJjaGl0ZWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60', description:'Work closely with engineers to design a bridge that wont fall down. Make sure it is stylish and functional, and fits in with the regions asthetic.'})
+  ]
+
 }
 
 export const ProxyState = new Proxy(new AppState(), {
