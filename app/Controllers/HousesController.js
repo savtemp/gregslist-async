@@ -1,7 +1,6 @@
 import { ProxyState } from "../AppState.js"
 import { housesService } from "../Services/HousesService.js"
 import { houseForm } from "../Models/House.js"
-import { loadState, saveState } from "../Utils/LocalStorage.js"
 
 
 function _drawHouses(){
@@ -21,12 +20,11 @@ function _drawHouseForm(){
 export class HousesController{
   constructor(){
     console.log('houses controller loaded');
-    ProxyState.on('houses', _drawHouses)
-    ProxyState.on('houses', saveState)
+    // ProxyState.on('houses', _drawHouses)
 
     // loadState()
-    _drawHouses()
-    _drawHouseForm()
+    // _drawHouses()
+    // _drawHouseForm()
   }
 
   viewHouses(){

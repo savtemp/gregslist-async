@@ -22,9 +22,9 @@ export function loadState(){
     ProxyState.cars = carData.map(c => new Car(c))
   }
 
-  let rawHouses = localStorage.getItem('houses')
-  if(rawHouses){
-    let houseData = JSON.parse(rawHouses)
-    ProxyState.houses = houseData.map(h => new House(h))
-  }
+  // let rawHouses = localStorage.getItem('houses')
+  // if(rawHouses){
+  //   let houseData = JSON.parse(rawHouses)
+  //   ProxyState.houses = houseData.map(h => new House(h))
+  // }
 }

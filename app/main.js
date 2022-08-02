@@ -11,7 +11,7 @@ class App {
 
   housesController = new HousesController()
 
-  jobsController = new JobsController()
+  // jobsController = new JobsController()
 }
 
 loadState()
