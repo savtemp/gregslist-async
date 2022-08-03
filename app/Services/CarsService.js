@@ -6,7 +6,7 @@ import { api } from "./AxiosService.js";
 class CarsService{
 
   async editCar(carData){
-    let res = await api.put('/cars/${carData.id}', carData)
+    let res = await api.put(`/cars/${carData.id}`, carData)
     let car = new Car(res.data)
     let carIndex = ProxyState.cars.findIndex(c => c.id == carData.id)
     ProxyState.cars.splice(carIndex, 1, car)

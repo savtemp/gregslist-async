@@ -1,59 +1,103 @@
 import { ProxyState } from "../AppState.js"
 import { housesService } from "../Services/HousesService.js"
-import { houseForm } from "../Models/House.js"
+import { getHouseForm } from "../Components/HouseForm.js"
+import { Pop } from "../Utils/Pop.js"
+
 
 
 function _drawHouses(){
-  // GET THE HOUSE TEMPLATE
   let template = ''
   let houses = ProxyState.houses
   houses.forEach(h => template += h.houseTemplate)
   document.getElementById('listings').innerHTML = template
-}
 
-function _drawHouseForm(){
-  document.getElementById('form').innerHTML = houseForm
+  document.getElementById('form').innerHTML = getHouseForm()
 }
 
 
 
 export class HousesController{
   constructor(){
-    console.log('houses controller loaded');
-    // ProxyState.on('houses', _drawHouses)
-
-    // loadState()
-    // _drawHouses()
-    // _drawHouseForm()
+    ProxyState.on('houses', _drawHouses)
+    this.getHouses()
   }
 
   viewHouses(){
     _drawHouses()
-    _drawHouseForm()
-    // loadState()
+    this.getHouses()
   }
 
-  createHouse(){
-    console.log('House form submitted');
-    window.event.preventDefault()
-    let form = window.event.target
-    console.log(form);
+  async getHouses(){
+    try {
+      await housesService.getHouses()
+    } catch (error) {
+      console.error('[Get Houses]', error);
+      Pop.error(error)
+    }
+  }
 
-    let newHouse = {
-      name: form.name.value,
-      year: form.year.value,
-      price: form.price.value,
-      img: form.img.value,
-      description: form.description.value,
+  async createHouse(){
+
+    try {
+      window.event.preventDefault()
+      let form = window.event.target
+      
+      let newHouse = {
+        bedrooms: form.bedrooms.value,
+        bathrooms: form.bathrooms.value,
+        levels: form.levels.value,
+        year: form.year.value,
+        price: form.price.value,
+        imgUrl: form.img.value,
+        description: form.description.value,
+      }
+
+      await housesService.createHouse(newHouse)
+      form.reset()
+      
+    } catch (error) {
+      console.error('[Create House]', error);
+      Pop.error(error)
     }
 
-    housesService.createHouse(newHouse)
-    form.reset()
   }
 
-  deleteHouse(id){
-    console.log('deleting', id);
-    housesService.deleteHouse(id)
+  async deleteHouse(houseId){
+    try {
+      await housesService.deleteHouse(houseId)
+    } catch (error) {
+      console.error('[Delete House]', error);
+      Pop.error(error)
+    }
+  }
+
+  adjustHouse(houseId){
+    let house = ProxyState.houses.find(h => h.id == houseId)
+    document.getElementById('form').innerHTML = getHouseForm(house)
+  }
+
+
+  async editHouse(houseId){
+    try {
+      window.event.preventDefault()
+      let form = window.event.target
+
+      let houseData = {
+        id: houseId,
+        bedrooms: form.bedrooms.value,
+        bathrooms: form.bathrooms.value,
+        levels: form.levels.value,
+        year: form.year.value,
+        price: form.price.value,
+        imgUrl: form.img.value,
+        description: form.description.value,
+      }
+      await housesService.editHouse(houseData)
+
+    } catch (error) {
+      console.error('[Edit House]', error);
+      Pop.error(error)
+    }
   }
 
 }
